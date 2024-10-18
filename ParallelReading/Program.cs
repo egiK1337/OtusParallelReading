@@ -2,31 +2,27 @@
 
 internal class Program
 {
-    private static string _folderPath = @"..\..\..\FilesForRead";
-    private static string[] _files =
+    public CountSpaces countSpaces = new CountSpaces();
+
+    private static async Task Main()
     {
-          @"..\..\..\FilesForRead\File1.txt"
-        , @"..\..\..\FilesForRead\File2.txt"
-        , @"..\..\..\FilesForRead\File3.txt"
-    };
-
-    private static async Task Main(string[] args)
-    {
-        try
+        CountSpaces countSpaces = new CountSpaces();
+        // Считываем пробелы из трех файлов
+        string[] filePaths =
         {
-            var countingSpaces = new СountingSpaces();
+             @"..\..\..\FilesForRead\File1.txt"
+           , @"..\..\..\FilesForRead\File2.txt"
+           , @"..\..\..\FilesForRead\File3.txt"
+        };
+        await countSpaces.CountSpacesInFilesAsync(filePaths);
 
-            // 1: Прочитать 3 файла параллельно и вычислить количество пробелов в них (через Task).
-            await countingSpaces.CountSpacesInFilesAsync(_files);
-
-            // 2: Написать функцию, принимающую в качестве аргумента путь к папке. Из этой папки параллельно прочитать все файлы и вычислить количество пробелов в них.
-            await countingSpaces.CountSpacesInFolderFilesAsync(_folderPath);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ошибка: {ex.Message}");
-        }
-
-        Console.Read();
+        // Считываем пробелы из всех файлов в папке
+        string directoryPath = @"C:\Users\Stanislav Lukashov\Desktop\проги\обучение\OtusParallelReading\ParallelReading\FilesForRead";
+        await countSpaces.CountSpacesInDirectoryAsync(directoryPath);
     }
+
+   
 }
+
+
+
